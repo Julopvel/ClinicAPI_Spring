@@ -39,9 +39,10 @@ public class DoctorController {
                 doctor.getEmail(),
                 doctor.getPhone(),
                 doctor.getSpecialty(),
-                new AddressData(doctor.getAddress().getStreet(),
-                                doctor.getAddress().getNumber(),
-                                doctor.getAddress().getCity())
+                new AddressData(
+                        doctor.getAddress().getStreet(),
+                        doctor.getAddress().getNumber(),
+                        doctor.getAddress().getCity())
         );
         URI uri = uriComponentsBuilder.path("/doctors/{id}").buildAndExpand(doctor.getId())
                 .toUri();
@@ -58,6 +59,13 @@ public class DoctorController {
     @GetMapping
     public ResponseEntity<List<ListDoctorDTO>> listActiveDoctors(){
         return ResponseEntity.ok(doctorRepository.findByActiveTrue());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ListDoctorDTO> listDoctorById(@PathVariable Long id){
+        Doctor doctor = doctorRepository.getReferenceById(id);
+        return ResponseEntity.ok(new ListDoctorDTO(doctor));
+
     }
 
     @PutMapping
