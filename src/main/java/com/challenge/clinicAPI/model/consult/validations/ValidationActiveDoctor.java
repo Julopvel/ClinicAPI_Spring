@@ -3,10 +3,18 @@ package com.challenge.clinicAPI.model.consult.validations;
 import com.challenge.clinicAPI.model.ValidityException;
 import com.challenge.clinicAPI.model.consult.dto.RegisterConsultDTO;
 import com.challenge.clinicAPI.model.doctor.DoctorRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public class ValidationActiveDoctor {
+@Component
+public class ValidationActiveDoctor implements ConsultValidator{
 
     private DoctorRepository doctorRepository;
+
+    @Autowired
+    public ValidationActiveDoctor(DoctorRepository doctorRepository) {
+        this.doctorRepository = doctorRepository;
+    }
 
     public void validate(RegisterConsultDTO registerConsultDTO) {
         //Selection of a doctor is optional.
