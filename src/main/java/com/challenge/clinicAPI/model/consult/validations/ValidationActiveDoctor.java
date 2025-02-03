@@ -24,7 +24,7 @@ public class ValidationActiveDoctor implements ConsultValidator{
 
         boolean isDoctorActive = doctorRepository.findActiveById(registerConsultDTO.idDoctor());
         if (!isDoctorActive){
-            throw new ValidityException("A consult can not be schedule by a non active patient");
+            throw new ValidityException("A consult can not be schedule by a non active doctor");
         }
     }
 }
