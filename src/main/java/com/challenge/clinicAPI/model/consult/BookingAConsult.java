@@ -1,6 +1,7 @@
 package com.challenge.clinicAPI.model.consult;
 
 import com.challenge.clinicAPI.model.ValidityException;
+import com.challenge.clinicAPI.model.consult.dto.DisplayInfoConsultDTO;
 import com.challenge.clinicAPI.model.consult.dto.RegisterConsultDTO;
 import com.challenge.clinicAPI.model.consult.validations.ConsultValidator;
 import com.challenge.clinicAPI.model.doctor.Doctor;
@@ -28,7 +29,7 @@ public class BookingAConsult {
         this.validators = validators;
     }
 
-    public void book(RegisterConsultDTO registerConsultDTO){
+    public DisplayInfoConsultDTO book(RegisterConsultDTO registerConsultDTO){
 
         if (!patientRepository.existsById(registerConsultDTO.idPatient())){
             throw new ValidityException("The patient with specified ID does not exist!");
@@ -41,10 +42,17 @@ public class BookingAConsult {
         validators.forEach(v -> v.validate(registerConsultDTO));
 
         Doctor doctor = chooseDoctor(registerConsultDTO);
+        if (doctor == null){
+            throw new ValidityException("No available doctor in this moment");
+        }
         Patient patient = patientRepository.findById(registerConsultDTO.idPatient()).get();
 
         //id is null because it is automatically incremented within the DB
         Consult consult = new Consult(null, doctor, patient, registerConsultDTO.date());
+
+        consultRepository.save(consult);
+
+        return new DisplayInfoConsultDTO(consult);
 
     }
 
