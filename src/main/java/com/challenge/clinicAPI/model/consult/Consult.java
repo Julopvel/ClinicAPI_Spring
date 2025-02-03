@@ -30,6 +30,7 @@ public class Consult {
     @JoinColumn(name = "patient_id")
     private Patient patient;
 
+    @Column(name = "date_time")
     private LocalDateTime date;
 
 
