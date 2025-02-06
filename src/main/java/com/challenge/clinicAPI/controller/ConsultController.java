@@ -3,6 +3,7 @@ package com.challenge.clinicAPI.controller;
 import com.challenge.clinicAPI.model.consult.BookingAConsult;
 import com.challenge.clinicAPI.model.consult.dto.DisplayInfoConsultDTO;
 import com.challenge.clinicAPI.model.consult.dto.RegisterConsultDTO;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/consult")
+@SecurityRequirement(name = "bearer-key")
 public class ConsultController {
 
     private BookingAConsult bookingAConsult;

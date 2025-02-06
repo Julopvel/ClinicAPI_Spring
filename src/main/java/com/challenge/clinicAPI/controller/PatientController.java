@@ -8,6 +8,7 @@ import com.challenge.clinicAPI.model.patient.dto.DisplayInfoPatientDTO;
 import com.challenge.clinicAPI.model.patient.dto.ListPatientDTO;
 import com.challenge.clinicAPI.model.patient.dto.RegisterPatientDTO;
 import com.challenge.clinicAPI.model.patient.dto.UpdatePatientDTO;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/patients")
+@SecurityRequirement(name = "bearer-key")
 public class PatientController {
 
     private PatientRepository patientRepository;
