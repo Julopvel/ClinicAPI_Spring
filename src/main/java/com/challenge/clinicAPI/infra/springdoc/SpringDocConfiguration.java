@@ -2,6 +2,9 @@ package com.challenge.clinicAPI.infra.springdoc;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +17,18 @@ public class SpringDocConfiguration {
         return new OpenAPI()
                 .components(new Components()
                         .addSecuritySchemes("bearer-key",
-                                new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")));
+                                new SecurityScheme()
+                                        .type(SecurityScheme.Type.HTTP)
+                                        .scheme("bearer")
+                                        .bearerFormat("JWT")))
+                .info(new Info()
+                        .title("ClinicAPI")
+                        .description("Rest API of a simulated clinic, which includes CRUD functionalities of doctors & patients, as well as consulting booking & cancellation")
+                        .contact(new Contact()
+                                .name("Backend Team"))
+                        .license(new License()
+                                .name("Apache 2.0"))
+                        .version("1.0"));
     }
 
 
