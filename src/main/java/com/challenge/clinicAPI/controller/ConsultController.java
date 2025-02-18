@@ -4,6 +4,7 @@ import com.challenge.clinicAPI.model.consult.BookingAConsult;
 import com.challenge.clinicAPI.model.consult.dto.DisplayInfoConsultDTO;
 import com.challenge.clinicAPI.model.consult.dto.RegisterConsultDTO;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ public class ConsultController {
     }
 
     @PostMapping
+    @Transactional
     public ResponseEntity<DisplayInfoConsultDTO> book (@RequestBody @Valid RegisterConsultDTO registerConsultDTO){
 
         var detailsConsult = bookingAConsult.book(registerConsultDTO);
